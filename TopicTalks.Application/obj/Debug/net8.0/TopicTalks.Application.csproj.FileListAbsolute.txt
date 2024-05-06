@@ -1,0 +1,15 @@
+C:\Users\j2ml\source\repos\console\Logger\BasicWebAPI\TopicTalks.Api\TopicTalks.Application\bin\Debug\net8.0\TopicTalks.Application.deps.json
+C:\Users\j2ml\source\repos\console\Logger\BasicWebAPI\TopicTalks.Api\TopicTalks.Application\bin\Debug\net8.0\TopicTalks.Application.dll
+C:\Users\j2ml\source\repos\console\Logger\BasicWebAPI\TopicTalks.Api\TopicTalks.Application\bin\Debug\net8.0\TopicTalks.Application.pdb
+C:\Users\j2ml\source\repos\console\Logger\BasicWebAPI\TopicTalks.Api\TopicTalks.Application\bin\Debug\net8.0\TopicTalks.Domain.dll
+C:\Users\j2ml\source\repos\console\Logger\BasicWebAPI\TopicTalks.Api\TopicTalks.Application\bin\Debug\net8.0\TopicTalks.Domain.pdb
+C:\Users\j2ml\source\repos\console\Logger\BasicWebAPI\TopicTalks.Api\TopicTalks.Application\obj\Debug\net8.0\TopicTalks.Application.csproj.AssemblyReference.cache
+C:\Users\j2ml\source\repos\console\Logger\BasicWebAPI\TopicTalks.Api\TopicTalks.Application\obj\Debug\net8.0\TopicTalks.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\j2ml\source\repos\console\Logger\BasicWebAPI\TopicTalks.Api\TopicTalks.Application\obj\Debug\net8.0\TopicTalks.Application.AssemblyInfoInputs.cache
+C:\Users\j2ml\source\repos\console\Logger\BasicWebAPI\TopicTalks.Api\TopicTalks.Application\obj\Debug\net8.0\TopicTalks.Application.AssemblyInfo.cs
+C:\Users\j2ml\source\repos\console\Logger\BasicWebAPI\TopicTalks.Api\TopicTalks.Application\obj\Debug\net8.0\TopicTalks.Application.csproj.CoreCompileInputs.cache
+C:\Users\j2ml\source\repos\console\Logger\BasicWebAPI\TopicTalks.Api\TopicTalks.Application\obj\Debug\net8.0\TopicTalks.Application.csproj.CopyComplete
+C:\Users\j2ml\source\repos\console\Logger\BasicWebAPI\TopicTalks.Api\TopicTalks.Application\obj\Debug\net8.0\TopicTalks.Application.dll
+C:\Users\j2ml\source\repos\console\Logger\BasicWebAPI\TopicTalks.Api\TopicTalks.Application\obj\Debug\net8.0\refint\TopicTalks.Application.dll
+C:\Users\j2ml\source\repos\console\Logger\BasicWebAPI\TopicTalks.Api\TopicTalks.Application\obj\Debug\net8.0\TopicTalks.Application.pdb
+C:\Users\j2ml\source\repos\console\Logger\BasicWebAPI\TopicTalks.Api\TopicTalks.Application\obj\Debug\net8.0\ref\TopicTalks.Application.dll

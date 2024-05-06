@@ -1,0 +1,12 @@
+C:\Users\j2ml\source\repos\console\Logger\BasicWebAPI\TopicTalks.Api\TopicTalks.Domain\bin\Debug\net8.0\TopicTalks.Domain.deps.json
+C:\Users\j2ml\source\repos\console\Logger\BasicWebAPI\TopicTalks.Api\TopicTalks.Domain\bin\Debug\net8.0\TopicTalks.Domain.dll
+C:\Users\j2ml\source\repos\console\Logger\BasicWebAPI\TopicTalks.Api\TopicTalks.Domain\bin\Debug\net8.0\TopicTalks.Domain.pdb
+C:\Users\j2ml\source\repos\console\Logger\BasicWebAPI\TopicTalks.Api\TopicTalks.Domain\obj\Debug\net8.0\TopicTalks.Domain.csproj.AssemblyReference.cache
+C:\Users\j2ml\source\repos\console\Logger\BasicWebAPI\TopicTalks.Api\TopicTalks.Domain\obj\Debug\net8.0\TopicTalks.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\j2ml\source\repos\console\Logger\BasicWebAPI\TopicTalks.Api\TopicTalks.Domain\obj\Debug\net8.0\TopicTalks.Domain.AssemblyInfoInputs.cache
+C:\Users\j2ml\source\repos\console\Logger\BasicWebAPI\TopicTalks.Api\TopicTalks.Domain\obj\Debug\net8.0\TopicTalks.Domain.AssemblyInfo.cs
+C:\Users\j2ml\source\repos\console\Logger\BasicWebAPI\TopicTalks.Api\TopicTalks.Domain\obj\Debug\net8.0\TopicTalks.Domain.csproj.CoreCompileInputs.cache
+C:\Users\j2ml\source\repos\console\Logger\BasicWebAPI\TopicTalks.Api\TopicTalks.Domain\obj\Debug\net8.0\TopicTalks.Domain.dll
+C:\Users\j2ml\source\repos\console\Logger\BasicWebAPI\TopicTalks.Api\TopicTalks.Domain\obj\Debug\net8.0\refint\TopicTalks.Domain.dll
+C:\Users\j2ml\source\repos\console\Logger\BasicWebAPI\TopicTalks.Api\TopicTalks.Domain\obj\Debug\net8.0\TopicTalks.Domain.pdb
+C:\Users\j2ml\source\repos\console\Logger\BasicWebAPI\TopicTalks.Api\TopicTalks.Domain\obj\Debug\net8.0\ref\TopicTalks.Domain.dll

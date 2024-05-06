@@ -1,0 +1,199 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+﻿@using static TopicTalks.Web.Configs.SettingsFetcher
+@using TopicTalks.Web.Enums
+@using TopicTalks.Web.Extensions
+@using TopicTalks.Web.ViewModels
+@model TopicTalks.Web.ViewModels.QuestionWithAnswersViewModel
+
+@{
+    var authorEmail = Model.UserInfo?.Email ?? "Delete User";
+    var authorId = Model.UserInfo?.UserId.ToString() ?? "0";
+
+    void RenderAnswers(List<AnswerWithRepliesViewModel> answers, int marginLeft = 0)
+    {
+        foreach (var answer in answers)
+        {
+            var answerAuthorId = answer.UserInfo?.UserId.ToString() ?? "0";
+            var answerAuthorEmail = answer.UserInfo?.Email ?? "Delete User";
+
+            <div id="answer-@(answer.AnswerId) parent-@(answer.ParentAnswerId)" class="rounded border p-3 mb-3" style="margin-left: @(marginLeft)px;">
+                <div class="d-flex justify-content-between">
+                    <p><strong>@(answerAuthorEmail)</strong> on @($"{answer.CreatedAt:MMM dd, yyyy} ({answer.CreatedAt.TimeAgo()})")</p>
+                    <div class="d-flex gap-2">
+                        @if (Context.UserRole() == nameof(RoleType.Moderator) || answerAuthorId == Context.UserId())
+                        {
+                            <span class="link-text text-danger" onclick="deleteAnswer(@(answer.AnswerId))">Delete</span>
+                            <span class="link-text text-success" onclick="appendInput(@(Model.QuestionId), @(answer.AnswerId), true)">Edit</span>
+                        }
+                        @if (Context.UserRole() != nameof(RoleType.Moderator))
+                        {
+                            <span class="link-text" onclick="appendInput(@(Model.QuestionId), @(answer.AnswerId))">Reply</span>
+                        }
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <p id="explanation-@(answer.AnswerId)">@answer.Explanation</p>
+                </div>
+            </div>
+
+            @if (answer?.Answers != null)
+            {
+                RenderAnswers(answer.Answers, marginLeft + 50);
+            }
+            else
+            {
+                marginLeft = 0;
+            }
+        }
+    }
+}
+
+<div class="container mt-5">
+    <div id="question-details" class="q-list-container">
+        <div id="question-container" question="@Model.QuestionId">
+            <div class="d-flex justify-content-between">
+                @{
+                    var edited = "";
+                    if (Model.UpdatedAt != null)
+                        edited = $"Edited at {Model.UpdatedAt?.ToString("MMM dd, yyyy")}";
+                }
+                <p><strong>@(authorEmail)</strong> <i id="edited-at">@edited</i></p>
+                <p>@Model.CreatedAt.ToString("MMM dd, yyyy | hh:mm tt") (@Model.CreatedAt.TimeAgo())</p>
+            </div>
+            <div class="form-group row">
+                <p id="explanation">@Model.Explanation</p>
+            </div>
+            <div class="d-flex justify-content-between">
+                <div id="topics" class="d-flex gap-2 topic">
+                    @foreach (var topic in Model.Topic.SplitAndTrim())
+                    {
+                        <p onclick="searchTag('@topic')">@topic</p>
+                    }
+                </div>
+                <div class="d-flex gap-2">
+                    @if (!Model.HasTeachersResponse && (Context.UserRole() == nameof(RoleType.Moderator) || authorId == Context.UserId()))
+                    {
+                        <span class="link-text text-danger" onclick="deleteQuestion(@Model.QuestionId)">Delete</span>
+                    }
+                    @if (Context.UserRole() == nameof(RoleType.Moderator) || authorId == Context.UserId())
+                    {
+                        <span id="edit-question" class="link-text text-success">Edit</span>
+                    }
+                    <a class="link-text text-dark" asp-controller="Question" asp-action="GetPdf" asp-route-questionId="@Model.QuestionId" target="_blank"><i class='bx bxs-printer bx-sm'></i></a>
+                </div>
+            </div>
+        </div>
+
+        <hr />
+
+        <div id="answer-container">
+            @{
+                RenderAnswers(Model.Answers);
+            }
+        </div>
+        @if (Context.UserRole() != nameof(RoleType.Moderator))
+        {
+
+            <div id="answer-input" class="col-sm-9 w-100">
+                <form id="answer-form" asp-action="PostAnswer" asp-controller="Answer" method="post">
+                    <input type="hidden" name="questionId" value="@(Model.QuestionId)" />
+                    <div class="text-center w-100">
+                        <textarea id="reply-text" class="form-control mb-2" rows="3" placeholder="Write your answer here" name="explanation"></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Post Answer</button>
+                    </div>
+                </form>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        $("#edit-question").on("click", function () {
+            var questionId = $("#question-container").attr("question")
+            var editedQuestion = appendQuestionEditInput(questionId)
+        });
+
+        function appendQuestionEditInput(questionId) {
+            closeReplyInput();
+
+            if (!$("#reply-input").length) {
+                $("#question-container").append(`
+                                    <div id="reply-input">
+                                        <form id="reply-form" class="col-sm-9 w-100 d-flex">
+                                            <input type="hidden" name="questionId" value="${questionId}" />
+                                            <div class="text-center w-100">
+                                                <input type="text" id="question-topics" class="form-control mb-1" placeholder="Write your question topics here" name="topic" />
+                                                <textarea id="explanation-input" class="form-control mb-1" rows="3" placeholder="Write your reply here" name="explanation"></textarea>
+                                            </div>
+                                            <div class="text-center d-flex justify-content-between align-items-end" style ="width: 150px;">
+                                                <div>
+                                                    <button type="button" class="btn btn-primary mb-1 mt-1" style="width: 90px;" onclick="focusReplyTextArea()">Reply</button>
+                                                    <button type="button" class="btn btn-danger mb-1 mt-1" style="width: 90px;" onclick="closeReplyInput()">Close</button>
+                                                    <button type="submit" class="btn btn-success" style="width: 90px;">Confirm</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>`)
+
+                $.get(`@ApiBaseUrl/api/question/${questionId}`)
+                    .done(function (data) {
+                        $("#explanation-input").val(data.explanation)
+                        $("#question-topics").val(data.topic)
+                    })
+                    .fail(function (error) { toastMessage("Error fetching question.", ToastType.Error) })
+
+                $('#reply-form').validate({
+                    rules: {
+                        explanation: {
+                            required: true,
+                            minlength: 10
+                        }
+                    },
+                    messages: {
+                        explanation: {
+                            required: "Please enter your question explanation",
+                            minlength: "Question must be at least 10 characters"
+                        }
+                    },
+                    submitHandler: (form) => {
+                        $.ajax({
+                            url: '/question',
+                            type: 'PATCH',
+                            data: $(form).serialize(),
+                            success: (response) => {
+                                $("#explanation").text(response.explanation)
+                                $("#topics").html(formatTopics(response.topic))
+                                $("#edited-at").text("Edited at " + formatDate(new Date()))
+                                toastMessage("Edit Successful!", ToastType.Success)
+                                closeReplyInput()
+                            },
+                            error: (xhr) => {
+                                toastMessage('Internal server error. Please try again later.', ToastType.Error);
+                            }
+                        })
+                    }
+                })
+            } else {
+                closeReplyInput()
+            }
+        }
+
+        function focusReplyTextArea() {
+            closeReplyInput()
+            $('#reply-text').focus()
+        }
+
+        function searchTag(searchText) {
+            $('#questionContainer').empty();
+            window.location.href = '/?searchQuery=' + searchText;
+        }
+    </script>
+}
